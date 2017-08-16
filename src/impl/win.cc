@@ -200,56 +200,56 @@ Serial::SerialImpl::reconfigurePort ()
   }
 
   // setup char len
-  if (bytesize_ == eightbits)
+  if (bytesize_ == bytesize_t::eightbits)
     dcbSerialParams.ByteSize = 8;
-  else if (bytesize_ == sevenbits)
+  else if (bytesize_ == bytesize_t::sevenbits)
     dcbSerialParams.ByteSize = 7;
-  else if (bytesize_ == sixbits)
+  else if (bytesize_ == bytesize_t::sixbits)
     dcbSerialParams.ByteSize = 6;
-  else if (bytesize_ == fivebits)
+  else if (bytesize_ == bytesize_t::fivebits)
     dcbSerialParams.ByteSize = 5;
   else
     throw invalid_argument ("invalid char len");
 
   // setup stopbits
-  if (stopbits_ == stopbits_one)
+  if (stopbits_ == stopbits_t::stopbits_one)
     dcbSerialParams.StopBits = ONESTOPBIT;
-  else if (stopbits_ == stopbits_one_point_five)
+  else if (stopbits_ == stopbits_t::stopbits_one_point_five)
     dcbSerialParams.StopBits = ONE5STOPBITS;
-  else if (stopbits_ == stopbits_two)
+  else if (stopbits_ == stopbits_t::stopbits_two)
     dcbSerialParams.StopBits = TWOSTOPBITS;
   else
     throw invalid_argument ("invalid stop bit");
 
   // setup parity
-  if (parity_ == parity_none) {
+  if (parity_ == parity_t::parity_none) {
     dcbSerialParams.Parity = NOPARITY;
-  } else if (parity_ == parity_even) {
+  } else if (parity_ == parity_t::parity_even) {
     dcbSerialParams.Parity = EVENPARITY;
-  } else if (parity_ == parity_odd) {
+  } else if (parity_ == parity_t::parity_odd) {
     dcbSerialParams.Parity = ODDPARITY;
-  } else if (parity_ == parity_mark) {
+  } else if (parity_ == parity_t::parity_mark) {
     dcbSerialParams.Parity = MARKPARITY;
-  } else if (parity_ == parity_space) {
+  } else if (parity_ == parity_t::parity_space) {
     dcbSerialParams.Parity = SPACEPARITY;
   } else {
     throw invalid_argument ("invalid parity");
   }
 
   // setup flowcontrol
-  if (flowcontrol_ == flowcontrol_none) {
+  if (flowcontrol_ == flowcontrol_t::flowcontrol_none) {
     dcbSerialParams.fOutxCtsFlow = false;
     dcbSerialParams.fRtsControl = 0x00;
     dcbSerialParams.fOutX = false;
     dcbSerialParams.fInX = false;
   }
-  if (flowcontrol_ == flowcontrol_software) {
+  if (flowcontrol_ == flowcontrol_t::flowcontrol_software) {
     dcbSerialParams.fOutxCtsFlow = false;
     dcbSerialParams.fRtsControl = 0x00;
     dcbSerialParams.fOutX = true;
     dcbSerialParams.fInX = true;
   }
-  if (flowcontrol_ == flowcontrol_hardware) {
+  if (flowcontrol_ == flowcontrol_t::flowcontrol_hardware) {
     dcbSerialParams.fOutxCtsFlow = true;
     dcbSerialParams.fRtsControl = 0x03;
     dcbSerialParams.fOutX = false;
