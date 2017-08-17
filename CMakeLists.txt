@@ -28,6 +28,7 @@ endif()
 
 ## Add serial library
 add_library(${PROJECT_NAME} ${serial_SRCS})
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
 if(APPLE)
 	target_link_libraries(${PROJECT_NAME} ${FOUNDATION_LIBRARY} ${IOKIT_LIBRARY})
 elseif(UNIX)
@@ -45,5 +46,5 @@ add_dependencies(serial_example ${PROJECT_NAME})
 target_link_libraries(serial_example ${PROJECT_NAME})
 
 ## Tests
-add_subdirectory(tests)
+# add_subdirectory(tests)
 

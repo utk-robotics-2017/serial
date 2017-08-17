@@ -53,7 +53,7 @@ namespace serial {
     /*!
  * Enumeration defines the possible bytesizes for the serial port.
  */
-    enum class bytesize_t
+    enum bytesize_t
     {
         fivebits = 5,
         sixbits = 6,
@@ -64,7 +64,7 @@ namespace serial {
     /*!
      * Enumeration defines the possible parity types for the serial port.
      */
-    enum class parity_t
+    enum parity_t
     {
         parity_none = 0,
         parity_odd = 1,
@@ -76,7 +76,7 @@ namespace serial {
     /*!
      * Enumeration defines the possible stopbit types for the serial port.
      */
-    enum class stopbits_t
+    enum stopbits_t
     {
         stopbits_one = 1,
         stopbits_two = 2,
@@ -86,7 +86,7 @@ namespace serial {
     /*!
      * Enumeration defines the possible flowcontrol types for the serial port.
      */
-    enum class flowcontrol_t
+    enum flowcontrol_t
     {
         flowcontrol_none = 0,
         flowcontrol_software,
@@ -184,10 +184,10 @@ namespace serial {
         Serial (const std::string &port = "",
                 uint32_t baudrate = 9600,
                 Timeout timeout = Timeout(),
-                bytesize_t bytesize = bytesize_t::eightbits,
-                parity_t parity = parity_t::parity_none,
-                stopbits_t stopbits = stopbits_t::stopbits_one,
-                flowcontrol_t flowcontrol = flowcontrol_t::flowcontrol_none);
+                bytesize_t bytesize = eightbits,
+                parity_t parity = parity_none,
+                stopbits_t stopbits = stopbits_one,
+                flowcontrol_t flowcontrol = flowcontrol_none);
 
         /*! Destructor */
         virtual ~Serial ();

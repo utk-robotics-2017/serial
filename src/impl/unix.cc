@@ -343,41 +343,41 @@ Serial::SerialImpl::reconfigurePort ()
 
   // setup char len
   options.c_cflag &= (tcflag_t) ~CSIZE;
-  if (bytesize_ == eightbits)
+  if (bytesize_ == bytesize_t::eightbits)
     options.c_cflag |= CS8;
-  else if (bytesize_ == sevenbits)
+  else if (bytesize_ == bytesize_t::sevenbits)
     options.c_cflag |= CS7;
-  else if (bytesize_ == sixbits)
+  else if (bytesize_ == bytesize_t::sixbits)
     options.c_cflag |= CS6;
-  else if (bytesize_ == fivebits)
+  else if (bytesize_ == bytesize_t::fivebits)
     options.c_cflag |= CS5;
   else
     throw invalid_argument ("invalid char len");
   // setup stopbits
-  if (stopbits_ == stopbits_one)
+  if (stopbits_ == stopbits_t::stopbits_one)
     options.c_cflag &= (tcflag_t) ~(CSTOPB);
-  else if (stopbits_ == stopbits_one_point_five)
+  else if (stopbits_ == stopbits_t::stopbits_one_point_five)
     // ONE POINT FIVE same as TWO.. there is no POSIX support for 1.5
     options.c_cflag |=  (CSTOPB);
-  else if (stopbits_ == stopbits_two)
+  else if (stopbits_ == stopbits_t::stopbits_two)
     options.c_cflag |=  (CSTOPB);
   else
     throw invalid_argument ("invalid stop bit");
   // setup parity
   options.c_iflag &= (tcflag_t) ~(INPCK | ISTRIP);
-  if (parity_ == parity_none) {
+  if (parity_ == parity_t::parity_none) {
     options.c_cflag &= (tcflag_t) ~(PARENB | PARODD);
-  } else if (parity_ == parity_even) {
+  } else if (parity_ == parity_t::parity_even) {
     options.c_cflag &= (tcflag_t) ~(PARODD);
     options.c_cflag |=  (PARENB);
-  } else if (parity_ == parity_odd) {
+  } else if (parity_ == parity_t::parity_odd) {
     options.c_cflag |=  (PARENB | PARODD);
   }
 #ifdef CMSPAR
-  else if (parity_ == parity_mark) {
+  else if (parity_ == parity_t::parity_mark) {
     options.c_cflag |=  (PARENB | CMSPAR | PARODD);
   }
-  else if (parity_ == parity_space) {
+  else if (parity_ == parity_t::parity_space) {
     options.c_cflag |=  (PARENB | CMSPAR);
     options.c_cflag &= (tcflag_t) ~(PARODD);
   }
@@ -391,15 +391,15 @@ Serial::SerialImpl::reconfigurePort ()
     throw invalid_argument ("invalid parity");
   }
   // setup flow control
-  if (flowcontrol_ == flowcontrol_none) {
+  if (flowcontrol_ == flowcontrol_t::flowcontrol_none) {
     xonxoff_ = false;
     rtscts_ = false;
   }
-  if (flowcontrol_ == flowcontrol_software) {
+  if (flowcontrol_ == flowcontrol_t::flowcontrol_software) {
     xonxoff_ = true;
     rtscts_ = false;
   }
-  if (flowcontrol_ == flowcontrol_hardware) {
+  if (flowcontrol_ == flowcontrol_t::flowcontrol_hardware) {
     xonxoff_ = false;
     rtscts_ = true;
   }
@@ -442,12 +442,12 @@ Serial::SerialImpl::reconfigurePort ()
 
   // Update byte_time_ based on the new settings.
   uint32_t bit_time_ns = 1e9 / baudrate_;
-  byte_time_ns_ = bit_time_ns * (1 + bytesize_ + parity_ + stopbits_);
+  byte_time_ns_ = bit_time_ns * (1 + static_cast<int>(bytesize_) + static_cast<int>(parity_) + static_cast<int>(stopbits_));
 
   // Compensate for the stopbits_one_point_five enum being equal to int 3,
   // and not 1.5.
-  if (stopbits_ == stopbits_one_point_five) {
-    byte_time_ns_ += ((1.5 - stopbits_one_point_five) * bit_time_ns);
+  if (stopbits_ == stopbits_t::stopbits_one_point_five) {
+    byte_time_ns_ += ((1.5 - static_cast<int>(stopbits_t::stopbits_one_point_five)) * bit_time_ns);
   }
 }
 
