@@ -53,8 +53,7 @@ namespace serial {
     /*!
  * Enumeration defines the possible bytesizes for the serial port.
  */
-    enum bytesize_t
-    {
+    enum bytesize_t {
         fivebits = 5,
         sixbits = 6,
         sevenbits = 7,
@@ -64,8 +63,7 @@ namespace serial {
     /*!
      * Enumeration defines the possible parity types for the serial port.
      */
-    enum parity_t
-    {
+    enum parity_t {
         parity_none = 0,
         parity_odd = 1,
         parity_even = 2,
@@ -76,8 +74,7 @@ namespace serial {
     /*!
      * Enumeration defines the possible stopbit types for the serial port.
      */
-    enum stopbits_t
-    {
+    enum stopbits_t {
         stopbits_one = 1,
         stopbits_two = 2,
         stopbits_one_point_five
@@ -86,8 +83,7 @@ namespace serial {
     /*!
      * Enumeration defines the possible flowcontrol types for the serial port.
      */
-    enum flowcontrol_t
-    {
+    enum flowcontrol_t {
         flowcontrol_none = 0,
         flowcontrol_software,
         flowcontrol_hardware
@@ -103,7 +99,9 @@ namespace serial {
 #ifdef max
 # undef max
 #endif
-        static uint32_t max() {return std::numeric_limits<uint32_t>::max();}
+
+        static uint32_t max() { return std::numeric_limits<uint32_t>::max(); }
+
         /*!
    * Convenience function to generate Timeout structs using a
    * single absolute timeout.
@@ -132,17 +130,16 @@ namespace serial {
    */
         uint32_t write_timeout_multiplier;
 
-        explicit Timeout (uint32_t inter_byte_timeout_=0,
-                          uint32_t read_timeout_constant_=0,
-                          uint32_t read_timeout_multiplier_=0,
-                          uint32_t write_timeout_constant_=0,
-                          uint32_t write_timeout_multiplier_=0)
-            : inter_byte_timeout(inter_byte_timeout_),
-              read_timeout_constant(read_timeout_constant_),
-              read_timeout_multiplier(read_timeout_multiplier_),
-              write_timeout_constant(write_timeout_constant_),
-              write_timeout_multiplier(write_timeout_multiplier_)
-        {}
+        explicit Timeout(uint32_t inter_byte_timeout_ = 0,
+                         uint32_t read_timeout_constant_ = 0,
+                         uint32_t read_timeout_multiplier_ = 0,
+                         uint32_t write_timeout_constant_ = 0,
+                         uint32_t write_timeout_multiplier_ = 0)
+                : inter_byte_timeout(inter_byte_timeout_),
+                  read_timeout_constant(read_timeout_constant_),
+                  read_timeout_multiplier(read_timeout_multiplier_),
+                  write_timeout_constant(write_timeout_constant_),
+                  write_timeout_multiplier(write_timeout_multiplier_) {}
     };
 
     /*!
@@ -181,16 +178,16 @@ namespace serial {
    * \throw serial::IOException
    * \throw std::invalid_argument
    */
-        Serial (const std::string &port = "",
-                uint32_t baudrate = 9600,
-                Timeout timeout = Timeout(),
-                bytesize_t bytesize = eightbits,
-                parity_t parity = parity_none,
-                stopbits_t stopbits = stopbits_one,
-                flowcontrol_t flowcontrol = flowcontrol_none);
+        Serial(const std::string &port = "",
+               uint32_t baudrate = 9600,
+               Timeout timeout = Timeout(),
+               bytesize_t bytesize = eightbits,
+               parity_t parity = parity_none,
+               stopbits_t stopbits = stopbits_one,
+               flowcontrol_t flowcontrol = flowcontrol_none);
 
         /*! Destructor */
-        virtual ~Serial ();
+        virtual ~Serial();
 
         /*!
    * Opens the serial port as long as the port is set and the port isn't
@@ -206,36 +203,36 @@ namespace serial {
    * \throw serial::IOException
    */
         void
-        open ();
+        open();
 
         /*! Gets the open status of the serial port.
    *
    * \return Returns true if the port is open, false otherwise.
    */
         bool
-        isOpen () const;
+        isOpen() const;
 
         /*! Closes the serial port. */
         void
-        close ();
+        close();
 
         /*! Return the number of characters in the buffer. */
         size_t
-        available ();
+        available();
 
         /*! Block until there is serial data to read or read_timeout_constant
    * number of milliseconds have elapsed. The return value is true when
    * the function exits with the port in a readable state, false otherwise
    * (due to timeout or select interruption). */
         bool
-        waitReadable ();
+        waitReadable();
 
         /*! Block for a period of time corresponding to the transmission time of
    * count characters at present serial settings. This may be used in con-
    * junction with waitReadable to read larger blocks of data from the
    * port. */
         void
-        waitByteTimes (size_t count);
+        waitByteTimes(size_t count);
 
         /*! Read a given amount of bytes from the serial port into a given buffer.
    *
@@ -266,7 +263,7 @@ namespace serial {
    * \throw serial::SerialException
    */
         size_t
-        read (uint8_t *buffer, size_t size);
+        read(uint8_t *buffer, size_t size);
 
         /*! Read a given amount of bytes from the serial port into a give buffer.
    *
@@ -280,7 +277,7 @@ namespace serial {
    * \throw serial::SerialException
    */
         size_t
-        read (std::vector<uint8_t> &buffer, size_t size = 1);
+        read(std::vector<uint8_t> &buffer, size_t size = 1);
 
         /*! Read a given amount of bytes from the serial port into a give buffer.
    *
@@ -294,7 +291,7 @@ namespace serial {
    * \throw serial::SerialException
    */
         size_t
-        read (std::string &buffer, size_t size = 1);
+        read(std::string &buffer, size_t size = 1);
 
         /*! Read a given amount of bytes from the serial port and return a string
    *  containing the data.
@@ -307,7 +304,7 @@ namespace serial {
    * \throw serial::SerialException
    */
         std::string
-        read (size_t size = 1);
+        read(size_t size = 1);
 
         /*! Reads in a line or until a given delimiter has been processed.
    *
@@ -323,7 +320,7 @@ namespace serial {
    * \throw serial::SerialException
    */
         size_t
-        readline (std::string &buffer, size_t size = 65536, std::string eol = "\n");
+        readline(std::string &buffer, size_t size = 65536, std::string eol = "\n");
 
         /*! Reads in a line or until a given delimiter has been processed.
    *
@@ -339,7 +336,7 @@ namespace serial {
    */
         virtual
         std::string
-        readline (size_t size = 65536, std::string eol = "\n");
+        readline(size_t size = 65536, std::string eol = "\n");
 
         /*! Reads in multiple lines until the serial port times out.
    *
@@ -356,7 +353,7 @@ namespace serial {
    * \throw serial::SerialException
    */
         std::vector<std::string>
-        readlines (size_t size = 65536, std::string eol = "\n");
+        readlines(size_t size = 65536, std::string eol = "\n");
 
         /*! Write a string to the serial port.
    *
@@ -374,7 +371,7 @@ namespace serial {
    * \throw serial::IOException
    */
         size_t
-        write (const uint8_t *data, size_t size);
+        write(const uint8_t *data, size_t size);
 
         /*! Write a string to the serial port.
    *
@@ -389,7 +386,7 @@ namespace serial {
    * \throw serial::IOException
    */
         size_t
-        write (const std::vector<uint8_t> &data);
+        write(const std::vector<uint8_t> &data);
 
         /*! Write a string to the serial port.
    *
@@ -405,7 +402,7 @@ namespace serial {
    */
         virtual
         size_t
-        write (const std::string &data);
+        write(const std::string &data);
 
         /*! Sets the serial port identifier.
    *
@@ -416,7 +413,7 @@ namespace serial {
    * \throw std::invalid_argument
    */
         void
-        setPort (const std::string &port);
+        setPort(const std::string &port);
 
         /*! Gets the serial port identifier.
    *
@@ -425,7 +422,7 @@ namespace serial {
    * \throw std::invalid_argument
    */
         std::string
-        getPort () const;
+        getPort() const;
 
         /*! Sets the timeout for reads and writes using the Timeout struct.
    *
@@ -464,14 +461,13 @@ namespace serial {
    * \see serial::Timeout
    */
         void
-        setTimeout (Timeout &timeout);
+        setTimeout(Timeout &timeout);
 
         /*! Sets the timeout for reads and writes. */
         void
-        setTimeout (uint32_t inter_byte_timeout, uint32_t read_timeout_constant,
-                    uint32_t read_timeout_multiplier, uint32_t write_timeout_constant,
-                    uint32_t write_timeout_multiplier)
-        {
+        setTimeout(uint32_t inter_byte_timeout, uint32_t read_timeout_constant,
+                   uint32_t read_timeout_multiplier, uint32_t write_timeout_constant,
+                   uint32_t write_timeout_multiplier) {
             Timeout timeout(inter_byte_timeout, read_timeout_constant,
                             read_timeout_multiplier, write_timeout_constant,
                             write_timeout_multiplier);
@@ -486,7 +482,7 @@ namespace serial {
    * \see Serial::setTimeout
    */
         Timeout
-        getTimeout () const;
+        getTimeout() const;
 
         /*! Sets the baudrate for the serial port.
    *
@@ -501,7 +497,7 @@ namespace serial {
    * \throw std::invalid_argument
    */
         void
-        setBaudrate (uint32_t baudrate);
+        setBaudrate(uint32_t baudrate);
 
         /*! Gets the baudrate for the serial port.
    *
@@ -512,7 +508,7 @@ namespace serial {
    * \throw std::invalid_argument
    */
         uint32_t
-        getBaudrate () const;
+        getBaudrate() const;
 
         /*! Sets the bytesize for the serial port.
    *
@@ -523,7 +519,7 @@ namespace serial {
    * \throw std::invalid_argument
    */
         void
-        setBytesize (bytesize_t bytesize);
+        setBytesize(bytesize_t bytesize);
 
         /*! Gets the bytesize for the serial port.
    *
@@ -532,7 +528,7 @@ namespace serial {
    * \throw std::invalid_argument
    */
         bytesize_t
-        getBytesize () const;
+        getBytesize() const;
 
         /*! Sets the parity for the serial port.
    *
@@ -542,7 +538,7 @@ namespace serial {
    * \throw std::invalid_argument
    */
         void
-        setParity (parity_t parity);
+        setParity(parity_t parity);
 
         /*! Gets the parity for the serial port.
    *
@@ -551,7 +547,7 @@ namespace serial {
    * \throw std::invalid_argument
    */
         parity_t
-        getParity () const;
+        getParity() const;
 
         /*! Sets the stopbits for the serial port.
    *
@@ -561,7 +557,7 @@ namespace serial {
    * \throw std::invalid_argument
    */
         void
-        setStopbits (stopbits_t stopbits);
+        setStopbits(stopbits_t stopbits);
 
         /*! Gets the stopbits for the serial port.
    *
@@ -570,7 +566,7 @@ namespace serial {
    * \throw std::invalid_argument
    */
         stopbits_t
-        getStopbits () const;
+        getStopbits() const;
 
         /*! Sets the flow control for the serial port.
    *
@@ -581,7 +577,7 @@ namespace serial {
    * \throw std::invalid_argument
    */
         void
-        setFlowcontrol (flowcontrol_t flowcontrol);
+        setFlowcontrol(flowcontrol_t flowcontrol);
 
         /*! Gets the flow control for the serial port.
    *
@@ -590,35 +586,35 @@ namespace serial {
    * \throw std::invalid_argument
    */
         flowcontrol_t
-        getFlowcontrol () const;
+        getFlowcontrol() const;
 
         /*! Flush the input and output buffers */
         void
-        flush ();
+        flush();
 
         /*! Flush only the input buffer */
         void
-        flushInput ();
+        flushInput();
 
         /*! Flush only the output buffer */
         void
-        flushOutput ();
+        flushOutput();
 
         /*! Sends the RS-232 break signal.  See tcsendbreak(3). */
         void
-        sendBreak (int duration);
+        sendBreak(int duration);
 
         /*! Set the break condition to a given level.  Defaults to true. */
         void
-        setBreak (bool level = true);
+        setBreak(bool level = true);
 
         /*! Set the RTS handshaking line to the given level.  Defaults to true. */
         void
-        setRTS (bool level = true);
+        setRTS(bool level = true);
 
         /*! Set the DTR handshaking line to the given level.  Defaults to true. */
         void
-        setDTR (bool level = true);
+        setDTR(bool level = true);
 
         /*!
    * Blocks until CTS, DSR, RI, CD changes or something interrupts it.
@@ -635,117 +631,130 @@ namespace serial {
    * \throw SerialException
    */
         bool
-        waitForChange ();
+        waitForChange();
 
         /*! Returns the current status of the CTS line. */
         bool
-        getCTS ();
+        getCTS();
 
         /*! Returns the current status of the DSR line. */
         bool
-        getDSR ();
+        getDSR();
 
         /*! Returns the current status of the RI line. */
         bool
-        getRI ();
+        getRI();
 
         /*! Returns the current status of the CD line. */
         bool
-        getCD ();
+        getCD();
 
     private:
         // Disable copy constructors
-        Serial(const Serial&);
-        Serial& operator=(const Serial&);
+        Serial(const Serial &);
+
+        Serial &operator=(const Serial &);
 
         // Pimpl idiom, d_pointer
         class SerialImpl;
+
         SerialImpl *pimpl_;
 
         // Scoped Lock Classes
         class ScopedReadLock;
+
         class ScopedWriteLock;
 
         // Read common function
         size_t
-        read_ (uint8_t *buffer, size_t size);
+        read_(uint8_t *buffer, size_t size);
+
         // Write common function
         size_t
-        write_ (const uint8_t *data, size_t length);
+        write_(const uint8_t *data, size_t length);
 
     };
 
-    class SerialException : public std::exception
-    {
+    class SerialException : public std::exception {
         // Disable copy constructors
-        SerialException& operator=(const SerialException&);
+        SerialException &operator=(const SerialException &);
+
         std::string e_what_;
     public:
-        SerialException (const char *description) {
+        SerialException(const char *description) {
             std::stringstream ss;
             ss << "SerialException " << description << " failed.";
             e_what_ = ss.str();
         }
-        SerialException (const SerialException& other) : e_what_(other.e_what_) {}
+
+        SerialException(const SerialException &other) : e_what_(other.e_what_) {}
+
         virtual ~SerialException() throw() {}
-        virtual const char* what () const throw () {
+
+        virtual const char *what() const throw() {
             return e_what_.c_str();
         }
     };
 
-    class IOException : public std::exception
-    {
+    class IOException : public std::exception {
         // Disable copy constructors
-        IOException& operator=(const IOException&);
+        IOException &operator=(const IOException &);
+
         std::string file_;
         int line_;
         std::string e_what_;
         int errno_;
     public:
-        explicit IOException (std::string file, int line, int errnum)
-            : file_(file), line_(line), errno_(errnum) {
+        explicit IOException(std::string file, int line, int errnum)
+                : file_(file), line_(line), errno_(errnum) {
             std::stringstream ss;
 #if defined(_WIN32) && !defined(__MINGW32__)
             char error_str [1024];
             strerror_s(error_str, 1024, errnum);
 #else
-            char * error_str = strerror(errnum);
+            char *error_str = strerror(errnum);
 #endif
             ss << "IO Exception (" << errno_ << "): " << error_str;
             ss << ", file " << file_ << ", line " << line_ << ".";
             e_what_ = ss.str();
         }
-        explicit IOException (std::string file, int line, const char * description)
-            : file_(file), line_(line), errno_(0) {
+
+        explicit IOException(std::string file, int line, const char *description)
+                : file_(file), line_(line), errno_(0) {
             std::stringstream ss;
             ss << "IO Exception: " << description;
             ss << ", file " << file_ << ", line " << line_ << ".";
             e_what_ = ss.str();
         }
+
         virtual ~IOException() throw() {}
-        IOException (const IOException& other) : line_(other.line_), e_what_(other.e_what_), errno_(other.errno_) {}
 
-        int getErrorNumber () const { return errno_; }
+        IOException(const IOException &other) : line_(other.line_), e_what_(other.e_what_), errno_(other.errno_) {}
 
-        virtual const char* what () const throw () {
+        int getErrorNumber() const { return errno_; }
+
+        virtual const char *what() const throw() {
             return e_what_.c_str();
         }
     };
 
-    class PortNotOpenedException : public std::exception
-    {
+    class PortNotOpenedException : public std::exception {
         // Disable copy constructors
-        const PortNotOpenedException& operator=(PortNotOpenedException);
+        const PortNotOpenedException &operator=(PortNotOpenedException);
+
         std::string e_what_;
     public:
-        PortNotOpenedException (const char * description)  {
+        PortNotOpenedException(const char *description) {
             std::stringstream ss;
             ss << "PortNotOpenedException " << description << " failed.";
             e_what_ = ss.str();
         }
-        PortNotOpenedException (const PortNotOpenedException& other) : e_what_(other.e_what_) {}
+
+        PortNotOpenedException(const PortNotOpenedException &other) : e_what_(other.e_what_) {}
+
         virtual ~PortNotOpenedException() throw() {}
-        virtual const char* what () const throw () {
+
+        virtual const char *what() const throw() {
             return e_what_.c_str();
         }
     };
