@@ -42,9 +42,9 @@ endif()
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 
 ## Uncomment for example
-add_executable(serial_example examples/serial_example.cc)
-add_dependencies(serial_example ${PROJECT_NAME})
-target_link_libraries(serial_example ${PROJECT_NAME})
+# add_executable(serial_example examples/serial_example.cc)
+# add_dependencies(serial_example ${PROJECT_NAME})
+# target_link_libraries(serial_example ${PROJECT_NAME})
 
 ## Tests
 # add_subdirectory(tests)
