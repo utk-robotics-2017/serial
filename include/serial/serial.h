@@ -209,6 +209,7 @@ namespace serial {
    *
    * \return Returns true if the port is open, false otherwise.
    */
+      
         bool
         isOpen() const;
 
@@ -262,6 +263,7 @@ namespace serial {
    * \throw serial::PortNotOpenedException
    * \throw serial::SerialException
    */
+        virtual
         size_t
         read(uint8_t *buffer, size_t size);
 
@@ -276,6 +278,7 @@ namespace serial {
    * \throw serial::PortNotOpenedException
    * \throw serial::SerialException
    */
+        virtual
         size_t
         read(std::vector<uint8_t> &buffer, size_t size = 1);
 
@@ -290,6 +293,7 @@ namespace serial {
    * \throw serial::PortNotOpenedException
    * \throw serial::SerialException
    */
+        virtual
         size_t
         read(std::string &buffer, size_t size = 1);
 
@@ -303,6 +307,7 @@ namespace serial {
    * \throw serial::PortNotOpenedException
    * \throw serial::SerialException
    */
+        virtual
         std::string
         read(size_t size = 1);
 
@@ -319,6 +324,7 @@ namespace serial {
    * \throw serial::PortNotOpenedException
    * \throw serial::SerialException
    */
+
         size_t
         readline(std::string &buffer, size_t size = 65536, std::string eol = "\n");
 
@@ -370,6 +376,7 @@ namespace serial {
    * \throw serial::SerialException
    * \throw serial::IOException
    */
+        virtual
         size_t
         write(const uint8_t *data, size_t size);
 
@@ -385,6 +392,7 @@ namespace serial {
    * \throw serial::SerialException
    * \throw serial::IOException
    */
+        virtual
         size_t
         write(const std::vector<uint8_t> &data);
 
