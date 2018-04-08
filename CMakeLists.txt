@@ -28,7 +28,7 @@ else()
 endif()
 
 ## Add serial library
-add_library(${PROJECT_NAME} ${serial_SRCS})
+add_library(${PROJECT_NAME} STATIC ${serial_SRCS})
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
 if(APPLE)
 	target_link_libraries(${PROJECT_NAME} ${FOUNDATION_LIBRARY} ${IOKIT_LIBRARY})
