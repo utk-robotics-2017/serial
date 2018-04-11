@@ -209,8 +209,8 @@ namespace serial {
    *
    * \return Returns true if the port is open, false otherwise.
    */
-      
-        bool
+
+        virtual bool
         isOpen() const;
 
         /*! Closes the serial port. */
@@ -597,15 +597,15 @@ namespace serial {
         getFlowcontrol() const;
 
         /*! Flush the input and output buffers */
-        void
+        virtual void
         flush();
 
         /*! Flush only the input buffer */
-        void
+        virtual void
         flushInput();
 
         /*! Flush only the output buffer */
-        void
+        virtual void
         flushOutput();
 
         /*! Sends the RS-232 break signal.  See tcsendbreak(3). */
