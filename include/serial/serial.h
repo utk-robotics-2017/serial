@@ -202,7 +202,7 @@ namespace serial {
    * \throw serial::SerialException
    * \throw serial::IOException
    */
-        void
+        virtual void
         open();
 
         /*! Gets the open status of the serial port.
