@@ -209,7 +209,6 @@ namespace serial {
    *
    * \return Returns true if the port is open, false otherwise.
    */
-
         virtual bool
         isOpen() const;
 
